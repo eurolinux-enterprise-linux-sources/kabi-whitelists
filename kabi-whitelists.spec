@@ -1,6 +1,6 @@
 Name:		kabi-whitelists
-Version:	20101015
-Release:	1%{?dist}.1
+Version:	20110412
+Release:	1%{?dist}
 Summary:	The Red Hat Enterprise Linux kernel ABI symbol whitelists
 
 Group:		System Environment/Kernel
@@ -25,6 +25,7 @@ external Linux kernel modules, and a yum plugin to aid enforcement.
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/lib/modules/kabi
 cp kabi_whitelist_{i686,ppc64,s390x,x86_64} $RPM_BUILD_ROOT/lib/modules/kabi
+cp README.txt $RPM_BUILD_ROOT/lib/modules/kabi
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -34,9 +35,13 @@ rm -rf $RPM_BUILD_ROOT
 /lib/modules/kabi
 
 %changelog
-* Sat Oct 16 2010 Jon Masters <jcm@redhat.com> - 20101015-1
-- Update the kABI whitelists for RHEL6.0 GA release
-- Resolves: #643570
+* Tue Apr 12 2011 Jon Masters <jcm@redhat.com> - 20110412-1
+- Update the kABI for RHEL6.1
+- Resolves: #682967
+
+* Fri Oct 15 2010 Jon Masters <jcm@redhat.com> - 20101015-1
+- Update the kABI whitelists for block symbol correction
+- Resolves: #636975
 
 * Fri Aug 20 2010 Jon Masters <jcm@redhat.com> - 20100820-1
 - Update the kABI whitelists for snapshot 13 release

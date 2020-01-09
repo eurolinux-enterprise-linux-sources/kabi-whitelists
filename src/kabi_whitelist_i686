@@ -126,6 +126,7 @@
 	alloc_netdev_mq
 	alloc_tty_driver
 	apic
+	arp_send
 	async_schedule
 	async_synchronize_full
 	atomic_notifier_call_chain
@@ -172,6 +173,7 @@
 	blk_queue_alignment_offset
 	blk_queue_bounce_limit
 	blk_queue_end_tag
+	blk_queue_flush
 	blk_queue_free_tags
 	blk_queue_init_tags
 	blk_queue_io_min
@@ -208,7 +210,9 @@
 	boot_cpu_data
 	boot_tvec_bases
 	bus_register
+	bus_register_notifier
 	bus_unregister
+	bus_unregister_notifier
 	byte_rev_table
 	call_rcu
 	call_usermodehelper_exec
@@ -425,6 +429,7 @@
 	filemap_fdatawait
 	filemap_fdatawrite
 	filemap_write_and_wait
+	filemap_write_and_wait_range
 	filp_close
 	filp_open
 	filter_current_check_discard
@@ -810,6 +815,7 @@
 	param_set_uint
 	param_set_ulong
 	param_set_ushort
+	path_lookup
 	pci_add_new_bus
 	pci_assign_resource
 	pci_bus_add_devices
@@ -984,6 +990,7 @@
 	register_filesystem
 	register_framebuffer
 	register_ftrace_event
+	register_inet6addr_notifier
 	register_inetaddr_notifier
 	register_ip_vs_scheduler
 	register_kprobe
@@ -1160,6 +1167,7 @@
 	skb_copy_expand
 	skb_dequeue
 	skb_free_datagram
+	skb_gso_segment
 	skb_make_writable
 	skb_pad
 	skb_pull
@@ -1311,6 +1319,7 @@
 	sysfs_remove_bin_file
 	sysfs_remove_file
 	sysfs_remove_group
+	sysfs_schedule_callback
 	system_state
 	tasklet_init
 	tasklet_kill
@@ -1383,6 +1392,7 @@
 	unregister_die_notifier
 	unregister_filesystem
 	unregister_framebuffer
+	unregister_inet6addr_notifier
 	unregister_inetaddr_notifier
 	unregister_ip_vs_scheduler
 	unregister_kprobe
@@ -1427,12 +1437,14 @@
 	usb_driver_release_interface
 	usb_driver_set_configuration
 	usb_find_interface
+	usb_free_urb
 	usb_get_current_frame_number
 	usb_get_descriptor
 	usb_get_dev
 	usb_get_from_anchor
 	usb_get_intf
 	usb_get_status
+	usb_get_urb
 	usb_ifnum_to_if
 	usb_interrupt_msg
 	usb_kill_anchored_urbs
@@ -1445,6 +1457,7 @@
 	usb_put_intf
 	usb_queue_reset_device
 	usb_register_dev
+	usb_register_driver
 	usb_reset_configuration
 	usb_reset_device
 	usb_reset_endpoint
