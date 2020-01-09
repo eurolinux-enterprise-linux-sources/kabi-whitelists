@@ -1,5 +1,7 @@
+%define ksc_source_version 0.9.4
+
 Name:		kabi-whitelists
-Version:	20120516
+Version:	20130129
 Release:	1%{?dist}
 Summary:	The Red Hat Enterprise Linux kernel ABI symbol whitelists
 
@@ -15,18 +17,43 @@ The kABI package contains information pertaining to the Red Hat Enterprise
 Linux kernel ABI, including lists of kernel symbols that are needed by
 external Linux kernel modules, and a yum plugin to aid enforcement.
 
+%package -n ksc
+Summary: Kernel source code checker (source version %{ksc_source_version})
+Group: Development/Tools
+AutoReqProv: no
+Requires: kabi-whitelists
+Requires: cpp
+Requires: file
+Source1: ksc-%{ksc_source_version}.tar.gz
+%description -n ksc
+A kernel module source code checker to find usage of non whitelist symbols
+
 %prep
-%setup -q
+# unpack kabi-whitelists
+tar xjvf %{SOURCE0}
+
+# unpack ksc
+tar xzvf %{SOURCE1}
 
 %build
-# nothing to build
+# build only, no need for kabi-whitelists
+pushd ksc-%{ksc_source_version}
+%{__python} setup.py build
+popd
 
 %install
-INSTALL_DIR=$RPM_BUILD_ROOT/lib/modules/
+# install kabi-whitelists
+pushd kabi-whitelists-%{version}
+KABI_INSTALL_DIR=$RPM_BUILD_ROOT/lib/modules/
+mkdir -p $KABI_INSTALL_DIR
+cp -R * $KABI_INSTALL_DIR
+popd
 
-rm -rf $RPM_BUILD_ROOT
-mkdir -p $INSTALL_DIR
-cp -R * $INSTALL_DIR
+# install ksc
+pushd ksc-%{ksc_source_version}
+%{__python} setup.py install -O1 --root %{buildroot}
+install -D ksc.1 %{buildroot}%{_mandir}/man1/ksc.1
+popd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -35,7 +62,44 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 /lib/modules/kabi-*
 
+%files -n ksc
+%defattr(-,root,root,-)
+%doc ksc-%{ksc_source_version}/README
+%{_bindir}/ksc
+%{_datadir}/ksc
+%{_mandir}/man1/ksc.*
+%config(noreplace) %{_sysconfdir}/ksc.conf
+%{python_sitelib}/ksc-%{ksc_source_version}*.egg-info
+
 %changelog
+* Tue Jan 29 2013 Jiri Olsa <jolsa@redhat.com> - 20130129-1
+- Update the kABI for RHEL6.4
+- Resolves #826795
+
+* Tue Jan 22 2013 Jiri Olsa <jolsa@redhat.com> - 20130122-1
+- Update the kABI for RHEL6.4
+- Resolves #864893
+- Resolves #826795
+
+* Mon Jan 21 2013 Jiri Olsa <jolsa@redhat.com> - 20130103-2
+- Update ksc package
+- Resolves #869353
+
+* Wed Jan 03 2013 Jiri Olsa <jolsa@redhat.com> - 20130103-1
+- Update the kABI for RHEL6.4
+- Resolves #864893
+
+* Thu Nov 07 2012 Jiri Olsa <jolsa@redhat.com> - 20121107-1
+- Update the kABI for RHEL6.4
+- Resolves #826795
+- Adding ksc subpackage
+- Resolves #869353
+
+* Thu Nov 01 2012 Jiri Olsa <jolsa@redhat.com> - 20121101-1
+- Adding ksc subpackage
+- Update the kABI for RHEL6.4
+- Resolves #869353
+
 * Mon May 07 2012 Jiri Olsa <jolsa@redhat.com> - 20120516-1
 - Update the kABI for RHEL6.3
 - Resolves: #816533 #812463
