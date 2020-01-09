@@ -1,5 +1,5 @@
 Name:		kabi-whitelists
-Version:	20111027
+Version:	20120516
 Release:	1%{?dist}
 Summary:	The Red Hat Enterprise Linux kernel ABI symbol whitelists
 
@@ -22,19 +22,59 @@ external Linux kernel modules, and a yum plugin to aid enforcement.
 # nothing to build
 
 %install
+INSTALL_DIR=$RPM_BUILD_ROOT/lib/modules/
+
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/lib/modules/kabi
-cp kabi_whitelist_{i686,ppc64,s390x,x86_64} $RPM_BUILD_ROOT/lib/modules/kabi
-cp README.txt $RPM_BUILD_ROOT/lib/modules/kabi
+mkdir -p $INSTALL_DIR
+cp -R * $INSTALL_DIR
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-/lib/modules/kabi
+/lib/modules/kabi-*
 
 %changelog
+* Mon May 07 2012 Jiri Olsa <jolsa@redhat.com> - 20120516-1
+- Update the kABI for RHEL6.3
+- Resolves: #816533 #812463
+
+* Mon May 07 2012 Jiri Olsa <jolsa@redhat.com> - 20120507-1
+- Fix rhel62 whitelist that got mixed by fix for 810456
+- Resolves: #810456
+
+* Mon Apr 06 2012 Jiri Olsa <jolsa@redhat.com> - 20120427-1
+- Update the kABI for RHEL6.3
+- Resolves: #810456 #803885
+
+* Mon Apr 06 2012 Jiri Olsa <jolsa@redhat.com> - 20120406-1
+- Update the kABI for RHEL6.3
+- Resolves: #737276
+
+* Mon Mar 26 2012 Jiri Olsa <jolsa@redhat.com> - 20120326-1
+- Update the kABI for RHEL6.3
+- Resolves: #737276
+
+* Mon Mar 15 2012 Jiri Olsa <jolsa@redhat.com> - 20120315-1
+- Update the kABI for RHEL6.3
+- Resolves: #753771
+
+* Mon Mar 14 2012 Jiri Olsa <jolsa@redhat.com> - 20120314-1
+- Update the kABI for RHEL6.3
+- Resolves: #753771
+
+* Mon Mar 03 2012 Jiri Olsa <jolsa@redhat.com> - 20120305-1
+- Update the kABI for RHEL6.3
+- Resolves: #753771
+
+* Mon Feb 20 2012 Jiri Olsa <jolsa@redhat.com> - 20120220-1
+- Update the kABI for RHEL6.3
+- Resolves: #737276
+
+* Mon Dec 19 2011 Jiri Olsa <jolsa@redhat.com> - 20111219-1
+- Update the kABI for RHEL6.3
+
 * Mon Oct 27 2011 Jiri Olsa <jolsa@redhat.com> - 20111027-1
 - Update the kABI for RHEL6.2
 - Resolves: #703125, #730410
