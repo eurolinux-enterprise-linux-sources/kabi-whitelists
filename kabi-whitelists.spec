@@ -1,5 +1,5 @@
 Name:		kabi-whitelists
-Version:	20110412
+Version:	20111027
 Release:	1%{?dist}
 Summary:	The Red Hat Enterprise Linux kernel ABI symbol whitelists
 
@@ -35,6 +35,22 @@ rm -rf $RPM_BUILD_ROOT
 /lib/modules/kabi
 
 %changelog
+* Mon Oct 27 2011 Jiri Olsa <jolsa@redhat.com> - 20111027-1
+- Update the kABI for RHEL6.2
+- Resolves: #703125, #730410
+
+* Mon Oct 24 2011 Jiri Olsa <jolsa@redhat.com> - 20111024-1
+- Update the kABI for RHEL6.2
+- Resolves: #702675
+
+* Wed Sep 01 2011 Jiri Olsa <jolsa@redhat.com> - 20110901-1
+- Update the kABI for RHEL6.2
+- Resolves: #700406, #700432
+
+* Wed Aug 17 2011 Jiri Olsa <jolsa@redhat.com> - 20110817-1
+- Update the kABI for RHEL6.2
+- Resolves: #690479 #680469
+
 * Tue Apr 12 2011 Jon Masters <jcm@redhat.com> - 20110412-1
 - Update the kABI for RHEL6.1
 - Resolves: #682967
